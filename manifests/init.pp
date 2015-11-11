@@ -37,6 +37,7 @@ class phpmyadmin (
   $package_name          = $::phpmyadmin::params::package_name,
   $apache_default_config = $::phpmyadmin::params::apache_default_config,
   $apache_name           = $::phpmyadmin::params::apache_name,
+  $use_example42_apache  = $::phpmyadmin::params::use_example42_apache,
 ) inherits ::phpmyadmin::params {
 
   #Variable validations

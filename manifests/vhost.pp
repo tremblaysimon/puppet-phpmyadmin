@@ -57,7 +57,7 @@ define phpmyadmin::vhost (
   $ssl_key         = '',
   $ssl_cert_file   = '',
   $ssl_key_file    = '',
-  $conf_dir        = $::apache::params::conf_dir,
+  $conf_dir        = $::phpmyadmin::params::apache_param_confd_dir,
   $conf_dir_enable = $::phpmyadmin::params::site_enable_dir,
 ) {
   include ::phpmyadmin

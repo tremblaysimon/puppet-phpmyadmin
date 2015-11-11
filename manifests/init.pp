@@ -48,7 +48,7 @@ class phpmyadmin (
   validate_string($package_name)
   validate_string($apache_default_config)
   validate_string($apache_name)
-  notify {"[phpmyadmin module] \$apache_name: ${apache_name}":}
+  notify {"[phpmyadmin module] \$apache_name: $::apache::params::process":}
 
   #Hacky, but if we want to not break with an already included apache... override mpm
   #If someone knows how to actually get out-of-scope variables to properly inherit

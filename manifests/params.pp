@@ -1,10 +1,11 @@
 #Phpmyadmin installation parameters
 #Sets variables for both centos/redhat and ubuntu OS versions currently
 
-class phpmyadmin::params {
+class phpmyadmin::params(
+  $use_example42_apache = false
+) {
   include ::apache::params
 
-  $use_example42_apache = false
   #Class defaults
 
   if $use_example42_apache == true {

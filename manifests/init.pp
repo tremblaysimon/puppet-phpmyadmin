@@ -53,40 +53,40 @@ class phpmyadmin (
   #Hacky, but if we want to not break with an already included apache... override mpm
   #If someone knows how to actually get out-of-scope variables to properly inherit
   #let me know.
-  if $manage_apache == true and !defined(Class['::apache']) {
-    class { '::apache':
-      mpm_module => 'prefork',
-    }
-    include ::apache::mod::php
-  }
-
-  if $manage_config == true {
-    #Default/basic apache config file for phpMyAdmin
-    file { $apache_default_config:
-      ensure  => $state_select,
-      content => template('phpmyadmin/phpMyAdmin.conf.erb'),
-      force   => true,
-      require => Package[$package_name],
-      notify  => Service[$apache_name],
-    }
-  }
-
-  $enabledt = str2bool($enabled)
-  #Define present/absent for enabled state (true/false)
-  $state_select = $enabledt ? {
-    true    => 'present',
-    default => 'absent',
-  }
-
-  if $preseed_package {
-    phpmyadmin::debconf { 'reconfigure-webserver':
-      selection  => 'phpmyadmin/reconfigure-webserver',
-      value_type => 'multiselect',
-      value      => 'apache2',
-      before     => Package[$package_name],
-    }
-  }
-
-  #Install or remove package based on enable status
-  ensure_packages([$package_name], { ensure => $state_select })
+  # if $manage_apache == true and !defined(Class['::apache']) {
+  #   class { '::apache':
+  #     mpm_module => 'prefork',
+  #   }
+  #   include ::apache::mod::php
+  # }
+  #
+  # if $manage_config == true {
+  #   #Default/basic apache config file for phpMyAdmin
+  #   file { $apache_default_config:
+  #     ensure  => $state_select,
+  #     content => template('phpmyadmin/phpMyAdmin.conf.erb'),
+  #     force   => true,
+  #     require => Package[$package_name],
+  #     notify  => Service[$apache_name],
+  #   }
+  # }
+  #
+  # $enabledt = str2bool($enabled)
+  # #Define present/absent for enabled state (true/false)
+  # $state_select = $enabledt ? {
+  #   true    => 'present',
+  #   default => 'absent',
+  # }
+  #
+  # if $preseed_package {
+  #   phpmyadmin::debconf { 'reconfigure-webserver':
+  #     selection  => 'phpmyadmin/reconfigure-webserver',
+  #     value_type => 'multiselect',
+  #     value      => 'apache2',
+  #     before     => Package[$package_name],
+  #   }
+  # }
+  #
+  # #Install or remove package based on enable status
+  # ensure_packages([$package_name], { ensure => $state_select })
 }

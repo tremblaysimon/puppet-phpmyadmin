@@ -2,7 +2,7 @@
 #Sets variables for both centos/redhat and ubuntu OS versions currently
 
 class phpmyadmin::params(
-  $use_example42_apache = false
+  $use_example42_apache = true
 ) {
   include ::apache::params
 
